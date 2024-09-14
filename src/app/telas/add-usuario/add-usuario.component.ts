@@ -1,6 +1,7 @@
+import { UserService } from './../../service/user-service.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, inject, NgModule, NgModuleRef, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -15,10 +16,16 @@ export class AddUsuarioComponent {
   httpClient = inject(HttpClient);
   userName: String = "";
 
-  postData() {
-    console.log({name: this.userName});
+  constructor(private userService: UserService) {}
 
-    this.httpClient.post('http://localhost:8081/todolist/api/v1/users/add', {"name": this.userName}).subscribe();
+  postData() {
+    this.userService.save(this.userName) .subscribe({
+      next: (res: any) => {},
+      error: (err) => {
+        console.error("Error saving user: ", err);
+      }
+    });
+
     this.userName = "";
   }
 }
