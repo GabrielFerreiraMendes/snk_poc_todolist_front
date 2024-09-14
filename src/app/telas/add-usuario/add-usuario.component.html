@@ -1,0 +1,7 @@
+<form id="meu-form">
+  <div>
+    <h2 class="fs-title">Adicionar usuário</h2>
+    <input type="text" [(ngModel)]="userName" name="nome-usuario" placeholder="Nome do usuário" >
+    <input type="button" name="salvar-usuario" class="salvar action-button" value="Salvar" (click)="postData()"/>
+  </div>
+</form>

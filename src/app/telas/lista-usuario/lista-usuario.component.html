@@ -1,0 +1,18 @@
+<form id="meu-form">
+  <div>
+    <h2 class="fs-title">Lista de usuários</h2>
+    <ul>
+      @for (user of data; track user.name) {
+      <div>
+        <h4> {{user.id}} - {{user.name}}</h4>
+        <input type="button" name="delete-user-button" class="delete action-button" value="Apagar usuário" (click)="deleteUser(user.id)"/>
+      </div>
+      <p></p>
+      }
+    </ul>
+
+
+
+  </div>
+</form>
+

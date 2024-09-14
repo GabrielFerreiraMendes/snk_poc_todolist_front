@@ -1,0 +1,22 @@
+<form id="meu-form">
+  <div>
+    <h2 class="fs-title">Lista de tarefas</h2>
+    <ul>
+      @for (task of data; track task.title) {
+      <div>
+        <h3> {{task.id}} - {{task.title}}</h3>
+        <p>{{task.description}}</p>
+        <label>Id do usuário: {{task.userId}}</label>
+
+        @if(task.status == "TODO"){
+        <p>Status: Pendente</p>
+        <input type="button" name="editar" class="editar action-button" value="Marcar como feito" (click)="updateTaskStatus(task.id)"/>
+        }@else {
+        <p>Status: Feito</p>
+        }
+      </div>
+      <p></p>
+      }
+    </ul>
+  </div>
+</form>
