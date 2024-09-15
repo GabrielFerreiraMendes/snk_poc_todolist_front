@@ -1,8 +1,17 @@
 <form id="meu-form">
+
+  <div id="div-filter">
+    <h4>Filtrar tarefas por usuário</h4>
+    <input type="number" [(ngModel)]="userId" name="filtrar-tarefa-id" class="intput-text" placeholder="Id do usuário" />
+    <input type="button" name="filtrar-tarefa-button" class="filtrar action-button" value="Filtrar" (click)="findTasksByUserId(userId)"/>
+  </div>
+
+  <p></p>
+
   <div>
     <h2 class="fs-title">Lista de tarefas</h2>
     <ul>
-      @for (task of data; track task.title) {
+      @for (task of data$ | async; track task.title) {
       <div>
         <h3> {{task.id}} - {{task.title}}</h3>
         <p>{{task.description}}</p>
@@ -13,6 +22,7 @@
         <input type="button" name="editar" class="editar action-button" value="Marcar como feito" (click)="updateTaskStatus(task)"/>
         }@else {
         <p>Status: Feito</p>
+        <input type="button" name="deletar" class="deletar action-button" value="Deletar tarefa" (click)="deleteTask(task)"/>
         }
       </div>
       <p></p>

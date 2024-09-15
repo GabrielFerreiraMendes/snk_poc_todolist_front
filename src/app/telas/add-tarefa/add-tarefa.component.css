@@ -50,3 +50,13 @@
 #meu-form .action-button:active {
   background-color: black;
 }
+
+#meu-form input[type=number] {
+  -moz-appearance: textfield;
+}
+
+#meu-form input::-webkit-outer-spin-button,
+#meu-form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

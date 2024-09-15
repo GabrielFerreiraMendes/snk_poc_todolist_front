@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, inject, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TaskService } from '../../service/task/task-service.service';
+import { Task } from '../../model/user/task/task';
 
 @Component({
   selector: 'app-add-tarefa',
@@ -13,22 +15,29 @@ import { FormsModule } from '@angular/forms';
 export class AddTarefaComponent {
   httpClient = inject(HttpClient);
 
-  title: String = "";
-  description: String = "";
-  userId: number = 0;
+  title: any = null;
+  description: any = null;
+  userId: any = null;
+  status: any = null;
 
+  constructor(private taskService: TaskService) { }
 
   addTask() {
-    this.httpClient.post("http://localhost:8081/todolist/api/v1/tasks/add", {
-      "title": this.title,
-      "description": this.description,
-      "userId": this.userId
-      }).subscribe(() => {
-        console.log("Task added successfully");
-        this.title = "";
-        this.description = "";
-        this.userId = 0;
-      });
+    this.taskService.save({ id: 0, title: this.title, description: this.description, userId: this.userId, status: this.status}).subscribe({
+      next: (res: any) => {
+        this.title = null;
+        this.description = null;
+        this.userId =  null;
+        this.status = null;
+      },
+      error: (err) => {
+        if (err.status === 409) {
+          alert("Usuario não cadastrado!");
+        } else {
+          alert("Erro ao tentar adicionar tarefa!");
+        }
+      }
+    });
   }
 
 }

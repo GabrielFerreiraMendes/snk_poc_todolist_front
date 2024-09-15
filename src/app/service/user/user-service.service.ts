@@ -18,15 +18,15 @@ export class UserService {
     return this.http.get<User[]>(this.usersUrl);
   }
 
-  public save(userName: String) {
+  public save(userName: String): Observable<User> {
     return this.http.post<User>(`${this.usersUrl}/add`, {"name": userName});
   }
 
-  public delete(user: User) {
-    return this.http.delete(`${this.usersUrl}/delete/${user.id}`);
+  public delete(user: User): Observable<User> {
+    return this.http.delete<User>(`${this.usersUrl}/delete/${user.id}`);
   }
 
-  public find(user: User) {
+  public find(user: User): Observable<User> {
     return this.http.get<User>(`${this.usersUrl}/find/${user.id}`);
   }
 }
