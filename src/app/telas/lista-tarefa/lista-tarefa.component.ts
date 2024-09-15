@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TaskService } from '../../service/task/task-service.service';
+import { Task } from '../../model/task/task';
 
 @Component({
   selector: 'app-lista-tarefa',
@@ -13,25 +15,24 @@ import { FormsModule } from '@angular/forms';
 export class ListaTarefaComponent implements OnInit {
   httpClient = inject(HttpClient);
   data: any = [];
-  taskId: number = 0;
-  userId: number = 0;
-  status: String = "";
+
+  constructor(private taskService: TaskService) {};
 
   ngOnInit(): void {
     this.fetchData();
   }
 
   fetchData() {
-    this.httpClient.get('http://localhost:8081/todolist/api/v1/tasks').subscribe((data: any) => {
-      console.log(data);
-      this.data = data;
+    this.taskService.findAll().subscribe({
+      next: (res: any) => { this.data = res; },
+      error: (err) => { }
     });
   }
 
-  updateTaskStatus(taskId: number) {
-    this.httpClient.put(`http://localhost:8081/todolist/api/v1/tasks/update/${taskId}`, { status: this.status }).subscribe((data: any) => {
-      console.log(data);
-      this.fetchData();
+  updateTaskStatus(task: Task) {
+    this.taskService.updateTaskStatus(task).subscribe({
+      next: (res: any) => { this.fetchData();},
+      error: (err) => { }
     });
   }
 

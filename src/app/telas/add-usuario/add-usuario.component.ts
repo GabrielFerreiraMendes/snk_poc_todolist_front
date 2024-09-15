@@ -1,4 +1,4 @@
-import { UserService } from './../../service/user-service.service';
+import { UserService } from '../../service/user/user-service.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, inject } from '@angular/core';

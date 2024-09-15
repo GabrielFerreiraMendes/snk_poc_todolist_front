@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../model/user';
+import { User } from '../../model/user/user';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -22,7 +22,11 @@ export class UserService {
     return this.http.post<User>(`${this.usersUrl}/add`, {"name": userName});
   }
 
-  public delete(userId: number) {
-    return this.http.delete(`${this.usersUrl}/delete/${userId}`);
+  public delete(user: User) {
+    return this.http.delete(`${this.usersUrl}/delete/${user.id}`);
+  }
+
+  public find(user: User) {
+    return this.http.get<User>(`${this.usersUrl}/find/${user.id}`);
   }
 }

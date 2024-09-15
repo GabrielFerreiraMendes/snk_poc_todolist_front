@@ -1,8 +1,9 @@
-import { UserService } from './../../service/user-service.service';
+import { UserService } from '../../service/user/user-service.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { User } from '../../model/user/user';
 
 @Component({
   selector: 'app-lista-usuario',
@@ -30,12 +31,8 @@ export class ListaUsuarioComponent implements OnInit {
     });
   }
 
-  findUser(userId: number) {
-    return this.httpClient.get(`http://localhost:8081/todolist/api/v1/users/find/${userId}`);
-  }
-
-  deleteUser(userId: number) {
-    this.userService.delete(userId).subscribe({
+  deleteUser(user: User) {
+    this.userService.delete(user).subscribe({
       next: (res: any) => { this.fetchData(); },
 
       error: (err) => {
@@ -46,14 +43,5 @@ export class ListaUsuarioComponent implements OnInit {
         }
       }
     })
-
-    if (!this.findUser(userId)) {
-      alert("User not found");
-      return
-    }
-
-    this.httpClient.delete(`http://localhost:8081/todolist/api/v1/users/delete/${userId}`).subscribe(() => {
-      this.fetchData();
-    });
   }
 }

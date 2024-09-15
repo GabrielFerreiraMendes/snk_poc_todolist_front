@@ -10,7 +10,7 @@
 
         @if(task.status == "TODO"){
         <p>Status: Pendente</p>
-        <input type="button" name="editar" class="editar action-button" value="Marcar como feito" (click)="updateTaskStatus(task.id)"/>
+        <input type="button" name="editar" class="editar action-button" value="Marcar como feito" (click)="updateTaskStatus(task)"/>
         }@else {
         <p>Status: Feito</p>
         }
